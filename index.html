@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="uk">
 <head>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PoliBest калькулятор</title>
-  <style>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PoliBest калькулятор</title>
+<style>
     body { font-family: Arial, sans-serif; background: #f4f4f9; color: #000; margin: 0; padding: 20px; }
     .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
     h1 { color: #b52a20; text-align: center; margin-bottom: 20px; }
@@ -38,163 +39,253 @@
     }
 
     .row button, .lac-type button, .lang-row button { flex: 1; }
-
-    
-
     .lac-type { display: none; }
-
     .result { margin-top: 20px; }
-  </style>
-
-<style>
-@media (max-width: 600px) {
-  .row {
-    flex-wrap: nowrap !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    gap: 10px !important;
-  }
-
-  .row button {
-    flex: 1 1 22% !important;
-    max-width: 25% !important;
-    padding: 12px !important;
-    font-size: 14px !important;
-  }
-}
-</style>
-
-
-<style>
-@media (max-width: 600px) {
-  .row button, .lac-type button, .lang-row button {
-    width: 80%;
-    max-width: 300px;
-    align-self: center;
-  }
-
-  .row, .lac-type, .lang-row {
-    align-items: center;
-  }
-}
-</style>
-
-
-<style>
-/* Сучасний вигляд кнопок */
-.row button, .lac-type button {
-  background: #e0e0e0;
-  color: #222;
+  
+#copyBtn {
+  background: #444;
+  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
   border: none;
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 18px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  cursor: pointer;
 }
 
-.row button.active, .lac-type button.active {
+#copyBtn:hover {
+  background: #333;
+}
+
+.lang-row button {
+  max-width: 60px;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>
+    @media (max-width: 600px) {
+      .row, .lac-type, .lang-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .row button, .lac-type button, .lang-row button {
+        width: 80%;
+        max-width: 300px;
+      }
+
+      .container {
+        max-width: 95% !important;
+        padding: 20px !important;
+      }
+
+      button {
+        font-size: 20px !important;
+        padding: 18px !important;
+        border-radius: 14px !important;
+      }
+    }
+
+    .row button, .lac-type button, .lang-row button {
+      background: #e0e0e0;
+      color: #222;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    .row button.active, .lac-type button.active, #layerButtons button.active {
+      background: #b52a20;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .result {
+      font-size: 17px;
+      padding: 18px 22px;
+      border-radius: 10px;
+      background: #fff4f4;
+      border-left: 5px solid #b52a20;
+    }
+  
+#copyBtn {
+  background: #444;
+  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#copyBtn:hover {
+  background: #333;
+}
+
+.lang-row button {
+  max-width: 60px;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Узгоджений стиль для кнопок мови і копіювання */
+
+
+
+
+
+
+
+
+.lang-copy-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: nowrap;
+}
+
+.lang-copy-row button {
+  background: #e0e0e0;
+  color: #333;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  width: 100px;
+  height: 60px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lang-copy-row button.active {
   background: #b52a20;
   color: #fff;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.row, .lac-type, .lang-row {
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
+#copyBtn {
+  position: relative;
+  top: -4px;
 }
 
-input[type="number"] {
-  font-size: 1.4rem;
-  padding: 18px;
+#sendBtn {
+  background: #0077cc;
+  color: white;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
   border-radius: 10px;
-  margin-bottom: 24px;
+  cursor: pointer;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 240px;
+  display: block;
+}
+#sendBtn:hover {
+  background: #005fa3;
 }
 
-label {
-  font-size: 18px;
-  margin-bottom: 10px;
+.lang-copy-row button#sendBtn {
+  background: #0077cc;
+  color: white;
+}
+.lang-copy-row button#sendBtn:hover {
+  background: #005fa3;
 }
 
-.result {
-  font-size: 17px;
-  padding: 18px 22px;
-  border-radius: 10px;
-  background: #fff4f4;
-  border-left: 5px solid #b52a20;
+.lang-copy-row button#sendBtn {
+  background: #0077cc;
+  color: white;
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  position: relative;
+  top: -6px;
 }
-
-@media (max-width: 600px) {
-  .container {
-    max-width: 95% !important;
-    padding: 20px !important;
-  }
-
-  .row, .lac-type, .lang-row {
-    flex-direction: column;
-  }
-
-  button {
-    font-size: 20px !important;
-    padding: 18px !important;
-    border-radius: 14px !important;
-  }
+.lang-copy-row button#sendBtn:hover {
+  background: #005fa3;
 }
 </style>
-
 </head>
 <body>
-  <div class="container">
-    
-
-
-
-
+<div class="container">
 <div class="row">
-  <button id="flokiBtn" onclick="selectMode('floki')">✨ Флоки</button>
-  <button id="screedBtn" onclick="toggleScreed()">🧱 Суха стяжка</button>
-  <button id="emalBtn" onclick="selectMode('emal')">🧴 Емаль</button>
-  <button id="paintBtn" onclick="selectMode('paint')">🎨 Фарба</button>
+<button id="flokiBtn" onclick="selectMode('floki')">✨ Флоки</button>
+<button id="screedBtn" onclick="toggleScreed()">🧱 Суха стяжка</button>
+<button id="emalBtn" onclick="selectMode('emal')">🧴 Емаль</button>
+<button id="paintBtn" onclick="selectMode('paint')">🎨 Фарба</button>
 </div>
-
-  
+<h1 id="title">Розрахунок витрат матеріалів</h1>
+<label for="area" id="areaLabel">Площа (м²):</label>
+<input id="area" inputmode="decimal" oninput="calculate()" pattern="[0-9]*" placeholder="Введіть площу" type="number"/>
+<div class="lac-type" id="lacButtons">
+<button id="glossyBtn" onclick="selectLac('glossy')">Глянцевий лак</button>
+<button id="matteBtn" onclick="selectLac('matte')">Матовий лак</button>
 </div>
-
-
-    <h1 id="title">Розрахунок витрат матеріалів</h1>
-    <label id="areaLabel" for="area">Площа (м²):</label>
-    <input type="number" id="area" inputmode="decimal" pattern="[0-9]*" placeholder="Введіть площу" oninput="calculate()" />
-
-    <div class="lac-type" id="lacButtons" style="flex-direction: row; gap: 10px;">
-      <button id="glossyBtn" onclick="selectLac('glossy')">Глянцевий лак</button>
-      <button id="matteBtn" onclick="selectLac('matte')">Матовий лак</button>
-    </div>
-
-    <div class="result" id="result"></div>
-
-
-<div class="bottom-controls" style="display: flex; justify-content: space-between; gap: 12px; margin-top: 20px;">
-  <button onclick="switchLang('uk')" style="flex: 1; height: 60px; font-size: 24px; border-radius: 12px;">🇺🇦</button>
-  <button onclick="switchLang('ru')" style="flex: 1; height: 60px; font-size: 24px; border-radius: 12px;">🇷🇺</button>
-  <button id="copyBtn" onclick="copyResult()" style="flex: 1; height: 60px; font-size: 24px; border-radius: 12px; background: #444; color: #fff; border: none;">📋</button>
+<div class="row" id="layerButtons" style="display: none;">
+<button onclick="selectLayers(2)">2 шари</button>
+<button onclick="selectLayers(3)">3 шари</button>
+<button onclick="selectLayers(4)">4 шари</button>
 </div>
-
-
-
-
-
-
-    
-  </div>
-
-  <script>
+<div class="result" id="result"></div>
+<div class="lang-copy-row"><button onclick="switchLang('uk')">🇺🇦</button><button onclick="switchLang('ru')">🇷🇺</button><button id="copyBtn" onclick="copyResult()">Копіювати</button><button id="sendBtn" onclick="sendToClient()" style="">📨</button></div>
+<div class="lang-copy-row"></div><div class="lang-copy-row"></div></div>
+<script>
     let mode = '';
     let lacType = 'glossy';
     let screed = false;
     let lang = 'uk';
+    let layers = 2;
 
     const translations = {
       uk: {
@@ -238,6 +329,10 @@ label {
     };
 
     function switchLang(l) {
+      document.querySelectorAll('.lang-copy-row button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.lang-copy-row button').forEach(btn => {
+        if (btn.innerText.includes(l === 'uk' ? '🇺🇦' : '🇷🇺')) btn.classList.add('active');
+      });
       lang = l;
       document.getElementById('title').innerText = translations[lang].title;
       document.getElementById('areaLabel').innerText = translations[lang].areaLabel;
@@ -260,6 +355,7 @@ label {
       clearActive();
       document.getElementById(selected + 'Btn').classList.add('active');
       document.getElementById('lacButtons').style.display = (selected === 'floki') ? 'flex' : 'none';
+      document.getElementById('layerButtons').style.display = (selected === 'paint' || selected === 'emal') ? 'flex' : 'none';
       calculate();
     }
 
@@ -268,6 +364,13 @@ label {
       document.getElementById('glossyBtn').classList.remove('active');
       document.getElementById('matteBtn').classList.remove('active');
       document.getElementById(type + 'Btn').classList.add('active');
+      calculate();
+    }
+
+    function selectLayers(l) {
+      layers = l;
+      document.querySelectorAll('#layerButtons button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
       calculate();
     }
 
@@ -297,13 +400,15 @@ label {
       }
 
       if (mode === 'paint') {
-        const pKg = Math.ceil(area * 0.2);
+        const rate = 0.1 * layers;
+        const pKg = Math.ceil(area * rate);
         const pPrice = 990;
         const pTotal = pKg * pPrice;
         html += `<div><strong>${translations[lang].paintMat}:</strong> ${pKg} кг × ${pPrice} = ${pTotal} грн</div>`;
         total += pTotal;
       } else if (mode === 'emal') {
-        const eKg = Math.ceil(area * 0.2);
+        const rate = 0.1 * layers;
+        const eKg = Math.ceil(area * rate);
         const ePrice = 1260;
         const eTotal = eKg * ePrice;
         html += `<div><strong>${translations[lang].enamel}:</strong> ${eKg} кг × ${ePrice} = ${eTotal} грн</div>`;
@@ -330,22 +435,25 @@ label {
       result.innerHTML = html;
     }
 
-    switchLang('uk');
-  </script>
+    
+    function copyResult() {
+      const text = document.getElementById("result").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Результат скопійовано!");
+      });
+    }
 
-<script>
-function copyResult() {
-  const result = document.getElementById('result');
-  if (!result || !result.innerText) return;
-  const textarea = document.createElement('textarea');
-  textarea.value = result.innerText;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
-  alert('Результат скопійовано!');
+    switchLang('uk');
+    
+  
+function sendToClient() {
+  const text = encodeURIComponent(document.getElementById("result").innerText);
+  const tg = `https://t.me/share/url?url=&text=${text}`;
+  const viber = `viber://forward?text=${text}`;
+
+  const choice = confirm("Натисніть OK для Telegram або Cancel для Viber");
+  window.open(choice ? tg : viber, '_blank');
 }
 </script>
 </body>
 </html>
-
