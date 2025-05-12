@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+
+<html lang="uk">
+<head>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PoliBest калькулятор</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; color: #000; margin: 0; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+    h1 { color: #b52a20; text-align: center; margin-bottom: 20px; }
+    label, input, button { display: block; width: 100%; margin-bottom: 15px; }
+    input { padding: 14px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1.1rem; }
+
+    button {
+      background: #b52a20;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover { background: #a61f1f; }
+
+    .row, .lac-type, .lang-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .row button, .lac-type button, .lang-row button { flex: 1; }
+    .lac-type { display: none; }
+    .result { margin-top: 20px; }
+  
+#copyBtn {
+  background: #444;
+  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#copyBtn:hover {
+  background: #333;
+}
+
+.lang-row button {
+  max-width: 60px;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>
+    @media (max-width: 600px) {
+/* Force 4 top buttons into single row on mobile */
+.lang-copy-row{
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+}
+.lang-copy-row button{
+  flex: 1 1 22% !important;
+  max-width: 25% !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+}
+
+      .row, .lac-type, .lang-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .row button, .lac-type button, .lang-row button {
+        width: 80%;
+        max-width: 300px;
+      }
+
+      .container {
+        max-width: 95% !important;
+        padding: 20px !important;
+      }
+
+      button {
+        font-size: 20px !important;
+        padding: 18px !important;
+        border-radius: 14px !important;
+      }
+    }
+
+    .row button, .lac-type button, .lang-row button {
+      background: #e0e0e0;
+      color: #222;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    .row button.active, .lac-type button.active, #layerButtons button.active {
+      background: #b52a20;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .result {
+      font-size: 17px;
+      padding: 18px 22px;
+      border-radius: 10px;
+      background: #fff4f4;
+      border-left: 5px solid #b52a20;
+    }
+  
+#copyBtn {
+  background: #444;
+  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#copyBtn:hover {
+  background: #333;
+}
+
+.lang-row button {
+  max-width: 60px;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Узгоджений стиль для кнопок мови і копіювання */
+
+
+
+
+
+
+
+
+.lang-copy-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: nowrap;
+}
+
+.lang-copy-row button {
+  background: #e0e0e0;
+  color: #333;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  width: 100px;
+  height: 60px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lang-copy-row button.active {
+  background: #b52a20;
+  color: #fff;
+}
+
+#copyBtn {
+  position: relative;
+  top: -4px;
+}
+
+#sendBtn {
+  background: #0077cc;
+  color: white;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 240px;
+  display: block;
+}
+#sendBtn:hover {
+  background: #005fa3;
+}
+
+.lang-copy-row button#sendBtn {
+  background: #0077cc;
+  color: white;
+}
+.lang-copy-row button#sendBtn:hover {
+  background: #005fa3;
+}
+
+.lang-copy-row button#sendBtn {
+  background: #0077cc;
+  color: white;
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  position: relative;
+  top: -6px;
+}
+.lang-copy-row button#sendBtn:hover {
+  background: #005fa3;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<button id="flokiBtn" onclick="selectMode('floki')">✨ Флоки</button>
+<button id="screedBtn" onclick="toggleScreed()">🧱 Суха стяжка</button>
+<button id="emalBtn" onclick="selectMode('emal')">🧴 Емаль</button>
+<button id="paintBtn" onclick="selectMode('paint')">🎨 Фарба</button>
+</div>
+<h1 id="title">Розрахунок витрат матеріалів</h1>
+<label for="area" id="areaLabel">Площа (м²):</label>
+<input id="area" inputmode="decimal" oninput="calculate()" pattern="[0-9]*" placeholder="Введіть площу" type="number"/>
+<div class="lac-type" id="lacButtons">
+<button id="glossyBtn" onclick="selectLac('glossy')">Глянцевий лак</button>
+<button id="matteBtn" onclick="selectLac('matte')">Матовий лак</button>
+</div>
+<div class="row" id="layerButtons" style="display: none;">
+<button onclick="selectLayers(2)">2 шари</button>
+<button onclick="selectLayers(3)">3 шари</button>
+<button onclick="selectLayers(4)">4 шари</button>
+</div>
+<div class="result" id="result"></div>
+<div class="lang-copy-row"><button onclick="switchLang('uk')">🇺🇦</button><button onclick="switchLang('ru')">🇷🇺</button><button id="copyBtn" onclick="copyResult()">Копіювати</button><button id="sendBtn" onclick="sendToClient()" style="">📨</button></div>
+<div class="lang-copy-row"></div><div class="lang-copy-row"></div></div>
+<script>
+    let mode = '';
+    let lacType = 'glossy';
+    let screed = false;
+    let lang = 'uk';
+    let layers = 2;
+
+    const translations = {
+      uk: {
+        title: "Розрахунок витрат матеріалів",
+        areaLabel: "Площа (м²):",
+        placeholder: "Введіть площу",
+        floki: "✨ Флоки",
+        screed: "🧱 Суха стяжка",
+        emal: "🧴 Емаль",
+        paint: "🎨 Фарба",
+        glossy: "Глянцевий лак",
+        matte: "Матовий лак",
+        error: "Введіть коректну площу",
+        grunt: "Ґрунтівка",
+        enamel: "Емаль",
+        flakes: "Флоки",
+        varnish: "Лак",
+        total: "Загальна сума",
+        perM: "Ціна за м²",
+        paintMat: "Фарба"
+      },
+      ru: {
+        title: "Расчет расхода материалов",
+        areaLabel: "Площадь (м²):",
+        placeholder: "Введите площадь",
+        floki: "✨ Флоки",
+        screed: "🧱 Сухая стяжка",
+        emal: "🧴 Эмаль",
+        paint: "🎨 Краска",
+        glossy: "Глянцевый лак",
+        matte: "Матовый лак",
+        error: "Введите корректную площадь",
+        grunt: "Грунтовка",
+        enamel: "Эмаль",
+        flakes: "Флоки",
+        varnish: "Лак",
+        total: "Общая сумма",
+        perM: "Цена за м²",
+        paintMat: "Краска"
+      }
+    };
+
+    function switchLang(l) {
+      document.querySelectorAll('.lang-copy-row button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.lang-copy-row button').forEach(btn => {
+        if (btn.innerText.includes(l === 'uk' ? '🇺🇦' : '🇷🇺')) btn.classList.add('active');
+      });
+      lang = l;
+      document.getElementById('title').innerText = translations[lang].title;
+      document.getElementById('areaLabel').innerText = translations[lang].areaLabel;
+      document.getElementById('area').placeholder = translations[lang].placeholder;
+      document.getElementById('flokiBtn').innerText = translations[lang].floki;
+      document.getElementById('screedBtn').innerText = translations[lang].screed;
+      document.getElementById('emalBtn').innerText = translations[lang].emal;
+      document.getElementById('paintBtn').innerText = translations[lang].paint;
+      document.getElementById('glossyBtn').innerText = translations[lang].glossy;
+      document.getElementById('matteBtn').innerText = translations[lang].matte;
+      calculate();
+    }
+
+    function clearActive() {
+      ['flokiBtn','emalBtn','paintBtn'].forEach(id => document.getElementById(id).classList.remove('active'));
+    }
+
+    function selectMode(selected) {
+      mode = selected;
+      clearActive();
+      document.getElementById(selected + 'Btn').classList.add('active');
+      document.getElementById('lacButtons').style.display = (selected === 'floki') ? 'flex' : 'none';
+      document.getElementById('layerButtons').style.display = (selected === 'paint' || selected === 'emal') ? 'flex' : 'none';
+      calculate();
+    }
+
+    function selectLac(type) {
+      lacType = type;
+      document.getElementById('glossyBtn').classList.remove('active');
+      document.getElementById('matteBtn').classList.remove('active');
+      document.getElementById(type + 'Btn').classList.add('active');
+      calculate();
+    }
+
+    function selectLayers(l) {
+      layers = l;
+      document.querySelectorAll('#layerButtons button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      calculate();
+    }
+
+    function toggleScreed() {
+      screed = !screed;
+      document.getElementById('screedBtn').classList.toggle('active', screed);
+      calculate();
+    }
+
+    function calculate() {
+      const area = parseFloat(document.getElementById('area').value);
+      const result = document.getElementById('result');
+      if (!area || area <= 0) {
+        result.innerHTML = `<span style="color:red;">${translations[lang].error}</span>`;
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      if (screed) {
+        const gKg = Math.ceil(area * 0.2);
+        const gPrice = 720;
+        const gTotal = gKg * gPrice;
+        html += `<div><strong>${translations[lang].grunt}:</strong> ${gKg} кг × ${gPrice} = ${gTotal} грн</div>`;
+        total += gTotal;
+      }
+
+      if (mode === 'paint') {
+        const rate = 0.1 * layers;
+        const pKg = Math.ceil(area * rate);
+        const pPrice = 990;
+        const pTotal = pKg * pPrice;
+        html += `<div><strong>${translations[lang].paintMat}:</strong> ${pKg} кг × ${pPrice} = ${pTotal} грн</div>`;
+        total += pTotal;
+      } else if (mode === 'emal') {
+        const rate = 0.1 * layers;
+        const eKg = Math.ceil(area * rate);
+        const ePrice = 1260;
+        const eTotal = eKg * ePrice;
+        html += `<div><strong>${translations[lang].enamel}:</strong> ${eKg} кг × ${ePrice} = ${eTotal} грн</div>`;
+        total += eTotal;
+      } else if (mode === 'floki') {
+        const emalKg = Math.ceil(area * 0.2);
+        const flokiKg = Math.ceil(area * 0.025 * 20) / 20;
+        const lakKg = Math.ceil(area * 0.12);
+        const lakPrice = (lacType === 'glossy') ? 1440 : 1800;
+
+        const emalTotal = emalKg * 1260;
+        const flokiTotal = flokiKg * 1350;
+        const lakTotal = lakKg * lakPrice;
+
+        html += `<div><strong>${translations[lang].enamel}:</strong> ${emalKg} кг × 1260 = ${emalTotal} грн</div>`;
+        html += `<div><strong>${translations[lang].flakes}:</strong> ${flokiKg} кг × 1350 = ${flokiTotal} грн</div>`;
+        html += `<div><strong>${translations[lang].varnish} (${lacType === 'glossy' ? translations[lang].glossy : translations[lang].matte}):</strong> ${lakKg} кг × ${lakPrice} = ${lakTotal} грн</div>`;
+
+        total += emalTotal + flokiTotal + lakTotal;
+      }
+
+      html += `<div><strong>${translations[lang].total}:</strong> ${total} грн</div>`;
+      html += `<div><strong>${translations[lang].perM}:</strong> ${(total / area).toFixed(2)} грн/м²</div>`;
+      result.innerHTML = html;
+    }
+
+    
+    function copyResult() {
+      const text = document.getElementById("result").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Результат скопійовано!");
+      });
+    }
+
+    switchLang('uk');
+    
+  
+function sendToClient() {
+  const text = encodeURIComponent(document.getElementById("result").innerText);
+  const tg = `https://t.me/share/url?url=&text=${text}`;
+  const viber = `viber://forward?text=${text}`;
+
+  const choice = confirm("Натисніть OK для Telegram або Cancel для Viber");
+  window.open(choice ? tg : viber, '_blank');
+}
+</script>
+</body>
+</html>
